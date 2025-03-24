@@ -10,11 +10,13 @@ function TripForm({ onResults, onLoading }) {
   const [dropoffLocation, setDropoffLocation] = useState('')
   const [currentCycleUsed, setCurrentCycleUsed] = useState(0)
 
+  const baseUrl = import.meta.env.VITE_API_BASE_URL; 
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       onLoading(true)  // show spinner
-      const response = await axios.post('http://127.0.0.1:8000/api/trip/', {
+      const response = await axios.post(`${baseUrl}/api/trip/`, {
         currentLocation,
         pickupLocation,
         dropoffLocation,
