@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure-psl#kq-(c2a#%+s9re&u%o(*txxmc6nx(8ij*&$&#mlgecp!4_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['trip-backend-app-8gs9.onrender.com']
 
 
 # Application definition
@@ -42,7 +42,8 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = ['https://tripplannerapp.vercel.app/'
+                          ]
 
 ROOT_URLCONF = 'backend.urls'
 
