@@ -1,11 +1,16 @@
-# trips/hos_logic.py
+# trips/trip_logic.py
+
 import requests
+import os
 import math
 from datetime import datetime, timedelta
+from dotenv import load_dotenv
 
+#  .env 
+load_dotenv()
 
-# Replace with your ORS key
-ORS_API_KEY = "5b3ce3597851110001cf624834e7f42d72104b3d8efd0bc5a890109f"
+#  ORS_API_KEY from .env
+ORS_API_KEY = os.getenv("ORS_API_KEY")
 
 class DutyStatus:
     OFF_DUTY = "off_duty"
@@ -18,6 +23,9 @@ def geocode(address):
     Geocode an address string using ORS's geocoding endpoint.
     Returns (lat, lon) or None if not found.
     """
+    print(os.getenv('ORS_API_KEY'))
+    print( os.environ.get('ORS_API_KEY'))
+    
     url = "https://api.openrouteservice.org/geocode/search"
     params = {
         "api_key": ORS_API_KEY,
