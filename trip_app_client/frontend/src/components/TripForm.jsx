@@ -3,17 +3,30 @@ import React, { useState } from 'react'
 import { TextField, Button, Stack } from '@mui/material'
 import axios from 'axios'
 
-function TripForm({ onResults, onLoading }) {
+function TripForm({ onResults, onLoading, loading }) {
   const [currentLocation, setCurrentLocation] = useState('')
   const [pickupLocation, setPickupLocation] = useState('')
   const [dropoffLocation, setDropoffLocation] = useState('')
   const [currentCycleUsed, setCurrentCycleUsed] = useState(0)
 
-  const baseUrl = import.meta.env.VITE_API_URL;
+  // New state to track if the user has attempted to submit
+  const [hasSubmitted, setHasSubmitted] = useState(false)
+console.log(hasSubmitted)
+  const baseUrl = import.meta.env.VITE_API_URL
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    console.log("handleSubmit")
+    setHasSubmitted(true) // user tried to submit
+    // If any required fields are empty, we might bail out
+    if (!currentLocation || !pickupLocation || !dropoffLocation) {
+      return
+    }
+
+    // show spinner
     if (onLoading) onLoading(true)
+
+    // proceed with API call
     try {
       const response = await axios.post(`${baseUrl}/api/trip/`, {
         currentLocation,
@@ -35,34 +48,44 @@ function TripForm({ onResults, onLoading }) {
     setPickupLocation('')
     setDropoffLocation('')
     setCurrentCycleUsed(0)
-    onResults(null) // if you want to clear the results as well
+    setHasSubmitted(false) // reset error display
+    onResults(null)
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <Stack spacing={2}>
         <TextField
-          label="Current Location"
+          label="Current Location *"
           variant="outlined"
           value={currentLocation}
           onChange={(e) => setCurrentLocation(e.target.value)}
-          required
+          error={hasSubmitted && !currentLocation}
+          helperText={
+            hasSubmitted && !currentLocation ? "Please enter current location" : ""
+          }
           placeholder='eg. Paris'
         />
         <TextField
-          label="Pickup Location"
+          label="Pickup Location *"
           variant="outlined"
           value={pickupLocation}
-          onChange={(e) => setPickupLocation(e.target.value)}
-          required
+          onChange={(e) => setPickupLocation(e.target.value)}        
+          error={hasSubmitted && !pickupLocation}
+          helperText={
+            hasSubmitted && !pickupLocation ? "Please enter pickup location" : ""
+          }
           placeholder='eg. London'
         />
         <TextField
-          label="Dropoff Location"
+          label="Dropoff Location *"
           variant="outlined"
           value={dropoffLocation}
           onChange={(e) => setDropoffLocation(e.target.value)}
-          required
+          error={hasSubmitted && !dropoffLocation}
+          helperText={
+            hasSubmitted && !dropoffLocation ? "Please enter dropoff location" : ""
+          }
           placeholder='eg. Milan'
         />
         <TextField
@@ -73,11 +96,22 @@ function TripForm({ onResults, onLoading }) {
           value={currentCycleUsed}
           onChange={(e) => setCurrentCycleUsed(e.target.value)}
         />
+
         <Stack direction="row" spacing={2}>
-          <Button type="submit" variant="contained" color="primary">
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={loading ? true : false}
+          >
             Plan Trip
           </Button>
-          <Button type="button" variant="outlined" color="secondary" onClick={handleReset}>
+          <Button
+            type="button"
+            variant="outlined"
+            color="secondary"
+            onClick={handleReset}
+          >
             Reset
           </Button>
         </Stack>

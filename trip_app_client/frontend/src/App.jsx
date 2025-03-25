@@ -5,6 +5,7 @@ import { Container, AppBar, Toolbar, Typography, CircularProgress, Box, Grid2, C
 import TripForm from './components/TripForm'
 import MapView from './components/MapView'
 import DailyLogs from './components/DailyLogs'
+import ErrorSnackbar from './components/ErrorSnackBar'
 
 function App() {
   const [tripData, setTripData] = useState(null)
@@ -21,6 +22,8 @@ function App() {
     // Called by TripForm to indicate request is in progress
     setLoading(isLoading)
   }
+
+
 
   return (
     <>
@@ -39,7 +42,7 @@ function App() {
         </Typography>
 
         {/* The form */}
-        <TripForm onResults={handleResults} onLoading={handleLoading} />
+        <TripForm onResults={handleResults} onLoading={handleLoading} loading={loading}/>
 
         {/* Show loading spinner if the request is in progress */}
         {loading && (
@@ -51,38 +54,35 @@ function App() {
         {/* Once we have data and not loading, show results */}
         {tripData && !tripData.error && !loading && (
       
-       <>
+        <>
                   
-    <Box sx={{ mt: 4 }}>
-            <Card >
-              <CardHeader title="Route Map" />
-              <Typography variant="h6" gutterBottom>
-              Total Distance: {tripData.distanceMiles} miles
-            </Typography>
-              <CardContent>
-                <MapView routeGeometry={tripData.routeGeometry} />
-              </CardContent>
-            </Card>
-
-            </Box>
- 
-            <DailyLogs 
-              logs={tripData.dailyLogs} 
-              currentLocation={tripData.currentLocation}
-              pickupLocation={tripData.pickupLocation}
-              dropoffLocation={tripData.dropoffLocation}
-              currentCycleUsed={tripData.currentCycleUsed}
-            />
-
-      </>
+          <Box sx={{ mt: 4 }}>
+              <Card >
+                <CardHeader title="Route Map" />
+                <Typography variant="h6" gutterBottom>
+                Total Distance: {tripData.distanceMiles} miles
+              </Typography>
+                <CardContent>
+                  <MapView routeGeometry={tripData.routeGeometry} />
+                </CardContent>
+              </Card>
+          </Box>
+            
+              <DailyLogs 
+                logs={tripData.dailyLogs} 
+                currentLocation={tripData.currentLocation}
+                pickupLocation={tripData.pickupLocation}
+                dropoffLocation={tripData.dropoffLocation}
+                currentCycleUsed={tripData.currentCycleUsed}
+              />
+        </>
         )}
 
         {/* Error display */}
         {tripData && tripData.error && !loading && (
-          <Typography variant="body1" color="error">
-            Error: {tripData.error}
-          </Typography>
+          <><ErrorSnackbar error={tripData.error}  /></>
         )}
+        
       </Container>
     </>
   )

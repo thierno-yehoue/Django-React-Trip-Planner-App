@@ -10,44 +10,47 @@ function DailyLogs({
   currentCycleUsed
 }) {
  
-  return (
-    <div style={{ marginTop: '1rem' }}>
+return (
 
-      <Box sx={{ mt: 3 }}>
-      <Box
-    sx={{
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      mb: 2 // margin bottom
-    }}
-  >
-    <Typography variant="h5" gutterBottom>
-      Daily Logs
-    </Typography>
-   
-  </Box>
-      <Card variant="outlined" sx={{ mb: 2 }}>
+  <div style={{ marginTop: '1rem' }}>
   
-      <CardHeader title="Trip Information" />
-    
+    <Box sx={{ mt: 3 }}>
 
-   
-      <CardContent>
-        <Typography variant="body1" gutterBottom>
-          <strong>Current Location:</strong> {currentLocation || 'N/A'}
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          <strong>Pickup Location:</strong> {pickupLocation || 'N/A'}
-        </Typography>
-        <Typography variant="body1">
-          <strong>Dropoff Location:</strong> {dropoffLocation || 'N/A'}
-        </Typography>
-        <Typography variant="body1">
-          <strong>Current Cycle Used:</strong> {currentCycleUsed || 0}
-        </Typography>
-      </CardContent>
-    </Card>
+       <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            mb: 2 
+          }}
+        >
+          <Typography variant="h5" gutterBottom>
+            Daily Logs
+          </Typography>      
+       </Box>
+
+       <Card variant="outlined" sx={{ mb: 2 }}>
+  
+         <CardHeader title="Trip Information" />  
+
+         <CardContent>
+
+          <Typography variant="body1" gutterBottom>
+            <strong>Current Location:</strong> {currentLocation || 'N/A'}
+          </Typography>
+          <Typography variant="body1" gutterBottom>
+            <strong>Pickup Location:</strong> {pickupLocation || 'N/A'}
+          </Typography>
+          <Typography variant="body1">
+            <strong>Dropoff Location:</strong> {dropoffLocation || 'N/A'}
+          </Typography>
+          <Typography variant="body1">
+            <strong>Current Cycle Used:</strong> {currentCycleUsed || 0}
+          </Typography>
+
+         </CardContent>  
+
+        </Card>
 
       {logs.map((dayLog, idx) => (
         <Card key={idx} sx={{ mb: 3 }}>
@@ -79,10 +82,9 @@ function DailyLogs({
       ))}
     </Box>
 
-
-
-    </div>
-  )
+  </div>
+  
+)
 }
 
 export default DailyLogs

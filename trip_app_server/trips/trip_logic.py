@@ -63,7 +63,6 @@ def get_route_geometry(coord_list):
 
     # Extract geometry (encoded polyline or geojson) and total distance
     # The default is "application/json" with a geometry type "polyline"
-    # For simplicity, let's parse the summary:
     features = data.get("features", [])
     if not features:
         return None, 0
@@ -100,9 +99,6 @@ def calculate_trip_plan(current_loc, pickup_loc, dropoff_loc, current_cycle_used
     # total duration in hours
     total_duration = duration_m1 + duration_m2
     
-
-    # For simplicity, we won't combine the two polylines. You could combine them if needed.
-    # We'll just store them in a small list
     route_geometry = [geom1, geom2]
 
     daily_logs = calculate_daily_logs(distance_miles, current_cycle_used)
@@ -122,7 +118,6 @@ def calculate_trip_plan(current_loc, pickup_loc, dropoff_loc, current_cycle_used
 
 def calculate_daily_logs(total_distance, current_cycle_used):
     """
-    Enhanced Hours-of-Service logic:
       - 70-hour cycle, 11-hour daily driving limit
       - Fueling exactly every 1000 miles (1 hour each fueling stop)
       - 1 hour pickup on Day 1, 1 hour drop-off on final day

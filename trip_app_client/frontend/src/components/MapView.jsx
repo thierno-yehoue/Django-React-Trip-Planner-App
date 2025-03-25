@@ -7,12 +7,10 @@ function MapView({ routeGeometry }) {
     return <p>No route data.</p>;
   }
 
-  // routeGeometry is an array of GeoJSON geometries in this example
+    // routeGeometry  
   // Each geometry has a "coordinates" array with [lon, lat].
-  // We can flatten them or show them in segments.
 
-  //  display the second geometry last; or combine them
-  //  pick the first geometry to get a center
+    // Convert each [lon, lat] -> [lat, lon] for Leaflet
   let coords1 = routeGeometry[0]?.coordinates || [];
   // Convert each [lon, lat] -> [lat, lon] for Leaflet
   let latlngs1 = coords1.map(([lon, lat]) => [lat, lon]);
