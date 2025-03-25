@@ -28,7 +28,7 @@ function App() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div">
-            HOS Trip Planner
+            Trip Planner
           </Typography>
         </Toolbar>
       </AppBar>
@@ -50,23 +50,31 @@ function App() {
 
         {/* Once we have data and not loading, show results */}
         {tripData && !tripData.error && !loading && (
-          <>
-            <Typography variant="h6" gutterBottom>
+      
+       <>
+                  
+    <Box sx={{ mt: 4 }}>
+            <Card >
+              <CardHeader title="Route Map" />
+              <Typography variant="h6" gutterBottom>
               Total Distance: {tripData.distanceMiles} miles
             </Typography>
-           
+              <CardContent>
+                <MapView routeGeometry={tripData.routeGeometry} />
+              </CardContent>
+            </Card>
 
-    <Card>
-      <CardHeader title="Route Map" />
-      <CardContent>
-        <MapView routeGeometry={tripData.routeGeometry}  />
-      </CardContent>
-    </Card>
+            </Box>
  
-    <DailyLogs logs={tripData.dailyLogs} />
+            <DailyLogs 
+              logs={tripData.dailyLogs} 
+              currentLocation={tripData.currentLocation}
+              pickupLocation={tripData.pickupLocation}
+              dropoffLocation={tripData.dropoffLocation}
+              currentCycleUsed={tripData.currentCycleUsed}
+            />
 
-            <DailyLogs logs={tripData.dailyLogs} />
-          </>
+      </>
         )}
 
         {/* Error display */}

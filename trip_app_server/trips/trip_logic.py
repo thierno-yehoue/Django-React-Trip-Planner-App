@@ -108,10 +108,16 @@ def calculate_trip_plan(current_loc, pickup_loc, dropoff_loc, current_cycle_used
     daily_logs = calculate_daily_logs(distance_miles, current_cycle_used)
 
     return {
+
+        "currentLocation": current_loc,
+        "pickupLocation": pickup_loc,
+        "dropoffLocation": dropoff_loc,
+        "currentCycleUsed": current_cycle_used,
         "totalDuration":round(total_duration, 2),
         "distanceMiles": round(distance_miles, 2),
         "dailyLogs": daily_logs,
         "routeGeometry": route_geometry
+        
     }
 
 def calculate_daily_logs(total_distance, current_cycle_used):

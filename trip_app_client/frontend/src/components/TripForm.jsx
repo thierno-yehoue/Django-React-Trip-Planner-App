@@ -1,8 +1,7 @@
-// src/components/TripForm.jsx
-
+// src/components/TripForm.jsx (snippet)
 import React, { useState } from 'react'
+import { TextField, Button, Stack } from '@mui/material'
 import axios from 'axios'
-import { TextField, Button, Box, Stack } from '@mui/material'
 
 function TripForm({ onResults, onLoading }) {
   const [currentLocation, setCurrentLocation] = useState('')
@@ -10,12 +9,12 @@ function TripForm({ onResults, onLoading }) {
   const [dropoffLocation, setDropoffLocation] = useState('')
   const [currentCycleUsed, setCurrentCycleUsed] = useState(0)
 
-  const baseUrl = import.meta.env.VITE_API_BASE_URL; 
+  const baseUrl = import.meta.env.VITE_API_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (onLoading) onLoading(true)
     try {
-      onLoading(true)  // show spinner
       const response = await axios.post(`${baseUrl}/api/trip/`, {
         currentLocation,
         pickupLocation,
@@ -23,37 +22,42 @@ function TripForm({ onResults, onLoading }) {
         currentCycleUsed
       })
       onResults(response.data)
-    } catch (error) {
-      console.error('Error:', error)
+    } catch (err) {
+      console.error(err)
       onResults({ error: 'Something went wrong' })
     } finally {
-      onLoading(false)
+      if (onLoading) onLoading(false)
     }
   }
 
+  const handleReset = () => {
+    setCurrentLocation('')
+    setPickupLocation('')
+    setDropoffLocation('')
+    setCurrentCycleUsed(0)
+    onResults(null) // if you want to clear the results as well
+  }
+
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ mb: 2 }}>
+    <form onSubmit={handleSubmit}>
       <Stack spacing={2}>
         <TextField
           label="Current Location"
           variant="outlined"
           value={currentLocation}
           onChange={(e) => setCurrentLocation(e.target.value)}
-          required
         />
         <TextField
           label="Pickup Location"
           variant="outlined"
           value={pickupLocation}
           onChange={(e) => setPickupLocation(e.target.value)}
-          required
         />
         <TextField
           label="Dropoff Location"
           variant="outlined"
           value={dropoffLocation}
           onChange={(e) => setDropoffLocation(e.target.value)}
-          required
         />
         <TextField
           label="Current Cycle Used (hrs)"
@@ -63,11 +67,16 @@ function TripForm({ onResults, onLoading }) {
           value={currentCycleUsed}
           onChange={(e) => setCurrentCycleUsed(e.target.value)}
         />
-        <Button variant="contained" color="primary" type="submit">
-          Plan Trip
-        </Button>
+        <Stack direction="row" spacing={2}>
+          <Button type="submit" variant="contained" color="primary">
+            Plan Trip
+          </Button>
+          <Button type="button" variant="outlined" color="secondary" onClick={handleReset}>
+            Reset
+          </Button>
+        </Stack>
       </Stack>
-    </Box>
+    </form>
   )
 }
 

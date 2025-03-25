@@ -11,8 +11,8 @@ function MapView({ routeGeometry }) {
   // Each geometry has a "coordinates" array with [lon, lat].
   // We can flatten them or show them in segments.
 
-  // Let's just display the second geometry last; or combine them
-  // We'll pick the first geometry to get a center
+  //  display the second geometry last; or combine them
+  //  pick the first geometry to get a center
   let coords1 = routeGeometry[0]?.coordinates || [];
   // Convert each [lon, lat] -> [lat, lon] for Leaflet
   let latlngs1 = coords1.map(([lon, lat]) => [lat, lon]);

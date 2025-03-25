@@ -1,20 +1,54 @@
-// src/components/DailyLogs.jsx
-
 import React from 'react'
-import { Card, CardContent, CardHeader, Typography, Grid, Box } from '@mui/material'
+import { Box, Card, CardContent, CardHeader, Typography } from '@mui/material'
 import ELDChart from './ELDChart'
 
-function DailyLogs({ logs }) {
-
-  console.log(logs)
-
-  if (!logs || logs.length === 0) {
-    return <Typography>No daily logs to display.</Typography>
-  }
-
+function DailyLogs({
+  logs,
+  currentLocation,
+  pickupLocation,
+  dropoffLocation,
+  currentCycleUsed
+}) {
+ 
   return (
-    <Box sx={{ mt: 3 }}>
-      <Typography variant="h5" gutterBottom>Daily Logs</Typography>
+    <div style={{ marginTop: '1rem' }}>
+
+      <Box sx={{ mt: 3 }}>
+      <Box
+    sx={{
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      mb: 2 // margin bottom
+    }}
+  >
+    <Typography variant="h5" gutterBottom>
+      Daily Logs
+    </Typography>
+   
+  </Box>
+      <Card variant="outlined" sx={{ mb: 2 }}>
+  
+      <CardHeader title="Trip Information" />
+    
+
+   
+      <CardContent>
+        <Typography variant="body1" gutterBottom>
+          <strong>Current Location:</strong> {currentLocation || 'N/A'}
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          <strong>Pickup Location:</strong> {pickupLocation || 'N/A'}
+        </Typography>
+        <Typography variant="body1">
+          <strong>Dropoff Location:</strong> {dropoffLocation || 'N/A'}
+        </Typography>
+        <Typography variant="body1">
+          <strong>Current Cycle Used:</strong> {currentCycleUsed || 0}
+        </Typography>
+      </CardContent>
+    </Card>
+
       {logs.map((dayLog, idx) => (
         <Card key={idx} sx={{ mb: 3 }}>
           <CardHeader
@@ -44,6 +78,10 @@ function DailyLogs({ logs }) {
         </Card>
       ))}
     </Box>
+
+
+
+    </div>
   )
 }
 
