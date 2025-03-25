@@ -46,18 +46,24 @@ function TripForm({ onResults, onLoading }) {
           variant="outlined"
           value={currentLocation}
           onChange={(e) => setCurrentLocation(e.target.value)}
+          required
+          placeholder='eg. Paris'
         />
         <TextField
           label="Pickup Location"
           variant="outlined"
           value={pickupLocation}
           onChange={(e) => setPickupLocation(e.target.value)}
+          required
+          placeholder='eg. London'
         />
         <TextField
           label="Dropoff Location"
           variant="outlined"
           value={dropoffLocation}
           onChange={(e) => setDropoffLocation(e.target.value)}
+          required
+          placeholder='eg. Milan'
         />
         <TextField
           label="Current Cycle Used (hrs)"
