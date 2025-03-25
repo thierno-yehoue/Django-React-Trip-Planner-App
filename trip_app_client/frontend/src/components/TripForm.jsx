@@ -11,12 +11,11 @@ function TripForm({ onResults, onLoading, loading }) {
 
   // New state to track if the user has attempted to submit
   const [hasSubmitted, setHasSubmitted] = useState(false)
-console.log(hasSubmitted)
+
   const baseUrl = import.meta.env.VITE_API_URL
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log("handleSubmit")
     setHasSubmitted(true) // user tried to submit
     // If any required fields are empty, we might bail out
     if (!currentLocation || !pickupLocation || !dropoffLocation) {
@@ -91,7 +90,7 @@ console.log(hasSubmitted)
         <TextField
           label="Current Cycle Used (hrs)"
           type="number"
-          inputProps={{ step: '0.1' }}
+          slotProps={{ step: '0.1' }}
           variant="outlined"
           value={currentCycleUsed}
           onChange={(e) => setCurrentCycleUsed(e.target.value)}

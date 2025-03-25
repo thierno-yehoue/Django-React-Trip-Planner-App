@@ -15,7 +15,7 @@ function App() {
     // Called by TripForm after a successful API response
     setTripData(data)
     setLoading(false)
-    console.log(data)
+   // console.log(data)
   }
 
   const handleLoading = (isLoading) => {
@@ -82,7 +82,7 @@ function App() {
         {tripData && tripData.error && !loading && (
           <><ErrorSnackbar error={tripData.error}  /></>
         )}
-        
+
       </Container>
     </>
   )

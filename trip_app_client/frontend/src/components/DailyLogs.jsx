@@ -9,7 +9,7 @@ function DailyLogs({
   dropoffLocation,
   currentCycleUsed
 }) {
- 
+ console.log(logs)
 return (
 
   <div style={{ marginTop: '1rem' }}>
@@ -53,10 +53,10 @@ return (
         </Card>
 
       {logs.map((dayLog, idx) => (
+       
         <Card key={idx} sx={{ mb: 3 }}>
           <CardHeader
             title={`Day ${dayLog.day} - ${dayLog.date}`}
-            subheader={`Driving: ${dayLog.driving} hrs, On-Duty: ${dayLog.onDutyNotDriving} hrs, Off-Duty: ${dayLog.offDuty} hrs`}
           />
           <CardContent>
             <Typography variant="body2" sx={{ mb: 1 }}>
@@ -70,10 +70,10 @@ return (
               <Box sx={{ mt: 2 }}>
                 <Typography variant="subtitle1">Duty Status Totals (hrs):</Typography>
                 <ul style={{ margin: 0, paddingLeft: '1.2rem' }}>
-                  <li>Off Duty: {dayLog.statusTotals.off_duty}</li>
-                  <li>Sleeper: {dayLog.statusTotals.sleeper}</li>
-                  <li>Driving: {dayLog.statusTotals.driving}</li>
-                  <li>On Duty (Not Driving): {dayLog.statusTotals.on_duty_not_driving}</li>
+                  <li>Off Duty: {dayLog.statusTotals.off_duty} hrs</li>
+                  <li>Sleeper: {dayLog.statusTotals.sleeper} hrs</li>
+                  <li>Driving: {dayLog.statusTotals.driving} hrs</li>
+                  <li>On Duty (Not Driving): {dayLog.statusTotals.on_duty_not_driving} hrs</li>
                 </ul>
               </Box>
             )}
