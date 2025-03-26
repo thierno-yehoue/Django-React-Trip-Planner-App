@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { iconDestination, iconFuel, iconPickup } from './Icons';
+import { iconCurrent, iconFuel, iconPickup, iconDropoff } from './Icons';
 
 function MapView({
   routeGeometry,
@@ -54,7 +53,9 @@ function MapView({
 
       {/* Markers for current/pickup/dropoff */}
       {latLonCurrent && (
-        <Marker position={[latLonCurrent[0], latLonCurrent[1]]}>
+        <Marker position={[latLonCurrent[0], latLonCurrent[1]]}
+        icon={ iconCurrent }
+        >
           <Popup>Current Location: {currentLocation}</Popup>
         </Marker>
       )}
@@ -69,7 +70,7 @@ function MapView({
 
       {latLonDropoff && (
         <Marker position={[latLonDropoff[0], latLonDropoff[1]]}
-        icon={ iconDestination }
+        icon={ iconDropoff }
         >
           <Popup>Dropoff Location: {dropoffLocation}</Popup>
         </Marker>
