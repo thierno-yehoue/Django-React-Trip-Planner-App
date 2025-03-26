@@ -61,7 +61,7 @@ function App() {
                 <CardHeader title="Route Map" />
                 <Typography variant="h6" gutterBottom>
                 Total Distance: {tripData.distanceMiles} miles
-              </Typography>
+                </Typography>
                 <CardContent>
                   <MapView routeGeometry={tripData.routeGeometry} />
                 </CardContent>
