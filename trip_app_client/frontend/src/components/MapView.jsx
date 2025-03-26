@@ -2,7 +2,7 @@
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { iconCurrent, iconDestination, iconFuel, iconPickup } from './Icons';
+import { iconDestination, iconFuel, iconPickup } from './Icons';
 
 function MapView({
   routeGeometry,

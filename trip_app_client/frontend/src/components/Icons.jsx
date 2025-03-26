@@ -2,7 +2,7 @@ import L from 'leaflet';
 
 import green from '../assets/green.svg'
 import red from '../assets/red.svg'
-import fuel1 from '../assets/fuel.svg'
+import fuel from '../assets/fuel.svg'
 
 
 // Create custom icons
@@ -15,7 +15,7 @@ import fuel1 from '../assets/fuel.svg'
   })
   
   const iconFuel = L.icon({
-    iconUrl: fuel1,     // path to your petrol/gas icon
+    iconUrl: fuel,     // path to your petrol/gas icon
     iconSize: [32, 32],
     iconAnchor: [16, 32],
     popupAnchor: [0, -32]
@@ -28,5 +28,4 @@ import fuel1 from '../assets/fuel.svg'
     popupAnchor: [0, -32]
   })
   
-
   export { iconDestination, iconFuel, iconPickup };
