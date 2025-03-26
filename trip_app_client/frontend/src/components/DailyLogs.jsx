@@ -9,7 +9,7 @@ function DailyLogs({
   dropoffLocation,
   currentCycleUsed
 }) {
- console.log(logs)
+//
 return (
 
   <div style={{ marginTop: '1rem' }}>

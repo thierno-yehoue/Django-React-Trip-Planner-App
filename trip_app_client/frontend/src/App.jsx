@@ -31,7 +31,7 @@ function App() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div">
-            Trip Planner
+            HOS Trip Planner
           </Typography>
         </Toolbar>
       </AppBar>
@@ -68,8 +68,11 @@ function App() {
                   latLonCurrent={tripData.latLonCurrent}
                   latLonPickup={tripData.latLonPickup}
                   latLonDropoff={tripData.latLonDropoff}
+                  currentLocation={tripData.currentLocation}
+                  pickupLocation={tripData.pickupLocation}
+                  dropoffLocation={tripData.dropoffLocation}
+                  currentCycleUsed={tripData.currentCycleUsed}
                   fuelingStops={tripData.fuelingStops}
-                  mapTripData={tripData}
                    />
                 </CardContent>
               </Card>

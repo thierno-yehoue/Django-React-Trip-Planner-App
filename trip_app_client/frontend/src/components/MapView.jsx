@@ -9,9 +9,10 @@ function MapView({
    latLonCurrent,
   latLonPickup,
   latLonDropoff,
-  fuelingStops,
-  mapTripData
-
+  currentLocation,
+  pickupLocation,
+  dropoffLocation,
+  fuelingStops
 }) {
   if (!routeGeometry || routeGeometry.length === 0) {
     return <p>No route data.</p>;
@@ -35,7 +36,6 @@ function MapView({
     center = latlngs1[0];
   }
 
-  let tripData = mapTripData?mapTripData : {};
 
   return (
     <MapContainer center={center} zoom={5} style={{ height: '400px', width: '100%' }}>
@@ -55,7 +55,7 @@ function MapView({
       {/* Markers for current/pickup/dropoff */}
       {latLonCurrent && (
         <Marker position={[latLonCurrent[0], latLonCurrent[1]]}>
-          <Popup>Current Location: {mapTripData.currentLocation}</Popup>
+          <Popup>Current Location: {currentLocation}</Popup>
         </Marker>
       )}
 
@@ -63,7 +63,7 @@ function MapView({
         <Marker position={[latLonPickup[0], latLonPickup[1]]}
         icon={ iconPickup }
         >
-          <Popup>Pickup Location: {mapTripData.pickupLocation}</Popup>
+          <Popup>Pickup Location: {pickupLocation}</Popup>
         </Marker>
       )}
 
@@ -71,7 +71,7 @@ function MapView({
         <Marker position={[latLonDropoff[0], latLonDropoff[1]]}
         icon={ iconDestination }
         >
-          <Popup>Dropoff Location: {mapTripData.dropoffLocation}</Popup>
+          <Popup>Dropoff Location: {dropoffLocation}</Popup>
         </Marker>
       )}
 
