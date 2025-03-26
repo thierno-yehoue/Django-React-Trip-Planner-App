@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-psl#kq-(c2a#%+s9re&u%o(*txxmc6nx(8ij*&$&#mlgecp!4_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['trip-backend-app-8gs9.onrender.com', 'localhost', '127.0.0.1']
 
