@@ -23,8 +23,6 @@ function App() {
     setLoading(isLoading)
   }
 
-
-
   return (
     <>
       {/* Top AppBar */}
