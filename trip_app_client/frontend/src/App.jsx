@@ -15,7 +15,7 @@ function App() {
     // Called by TripForm after a successful API response
     setTripData(data)
     setLoading(false)
-   // console.log(data)
+   console.log(data)
   }
 
   const handleLoading = (isLoading) => {
@@ -63,7 +63,14 @@ function App() {
                 Total Distance: {tripData.distanceMiles} miles
                 </Typography>
                 <CardContent>
-                  <MapView routeGeometry={tripData.routeGeometry} />
+                  <MapView 
+                  routeGeometry={tripData.routeGeometry}
+                  latLonCurrent={tripData.latLonCurrent}
+                  latLonPickup={tripData.latLonPickup}
+                  latLonDropoff={tripData.latLonDropoff}
+                  fuelingStops={tripData.fuelingStops}
+                  mapTripData={tripData}
+                   />
                 </CardContent>
               </Card>
           </Box>

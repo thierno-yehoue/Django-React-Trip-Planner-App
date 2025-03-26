@@ -102,9 +102,15 @@ def calculate_trip_plan(current_loc, pickup_loc, dropoff_loc, current_cycle_used
     route_geometry = [geom1, geom2]
 
     daily_logs = calculate_daily_logs(distance_miles, current_cycle_used)
+    
+     # Return route geometry + fueling stops + lat/lon for the three key points
+    fueling_stops = compute_fueling_stops(geom1, geom2)
 
     return {
 
+        "latLonCurrent": coord_current,
+        "latLonPickup": coord_pickup,
+        "latLonDropoff": coord_dropoff,
         "currentLocation": current_loc,
         "pickupLocation": pickup_loc,
         "dropoffLocation": dropoff_loc,
@@ -112,8 +118,8 @@ def calculate_trip_plan(current_loc, pickup_loc, dropoff_loc, current_cycle_used
         "totalDuration":round(total_duration, 2),
         "distanceMiles": round(distance_miles, 2),
         "dailyLogs": daily_logs,
-        "routeGeometry": route_geometry
-        
+        "routeGeometry": route_geometry,
+        "fuelingStops" : fueling_stops
     }
 
 def calculate_daily_logs(total_distance, current_cycle_used):
@@ -325,3 +331,42 @@ def compute_status_totals(segments):
     }
 
 
+def haversine_miles(lat1, lon1, lat2, lon2):
+    R = 3958.8  # Earth radius in miles
+    dLat = math.radians(lat2 - lat1)
+    dLon = math.radians(lon2 - lon1)
+    a = (math.sin(dLat/2)**2 +
+         math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dLon/2)**2)
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
+    return R * c
+
+def compute_fueling_stops(route1, route2):
+    
+    print(route1["coordinates"], route2["coordinates"])
+ 
+    # decode polylines
+    coords1 = route1["coordinates"] # list of (lat, lon)
+    coords2 = route2["coordinates"]
+    coords = coords1 + coords2[1:]  # avoid duplicating pickup if latlon_pickup is in both
+
+    fueling_stops = []
+    total_dist = 0.0
+    next_boundary = 1000.0
+    for i in range(len(coords) - 1):
+        (lat1, lon1) = coords[i]
+        (lat2, lon2) = coords[i+1]
+        seg_dist = haversine_miles(lat1, lon1, lat2, lon2)
+        # walk along this segment
+        start_dist = total_dist
+        end_dist = total_dist + seg_dist
+        # check if we cross a boundary (1000, 2000, 3000, etc.)
+        while next_boundary >= start_dist and next_boundary <= end_dist:
+            # find ratio to place fueling stop
+            ratio = (next_boundary - start_dist) / seg_dist
+            # lat/lon fueling stop
+            fueling_lat = lat1 + ratio * (lat2 - lat1)
+            fueling_lon = lon1 + ratio * (lon2 - lon1)
+            fueling_stops.append((fueling_lat, fueling_lon))
+            next_boundary += 1000.0
+        total_dist = end_dist
+    return fueling_stops
